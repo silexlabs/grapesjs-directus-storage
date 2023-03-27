@@ -16,12 +16,16 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
     const options = {
         collection: 'silex',
         assets: '/assets',
+        autosave: editor.StorageManager.config.autosave,
         ...opts,
     }
 
     if(!options.directusUrl) {
         throw new Error('Option `directusUrl` is required')
     }
+
+    // Disable autosave while not logged in
+    editor.StorageManager.config.autosave = false
 
     // Create directus client
     const directus = new Directus(options.directusUrl)
@@ -33,7 +37,7 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
     })
 
     // Commands
-    editor.Commands.add('login', () => login(editor, directus))
+    editor.Commands.add('login', () => login(editor, directus, options))
     editor.Commands.add('logout', () => logout(editor, directus))
 
     // Custom asset manager to upload assets to directus
@@ -91,7 +95,7 @@ async function store(editor, directus, options, data) {
         const { assets, ...saved } = data
         const result = await directus.items(options.collection).createOne({
             ...saved,
-            user_updated: user.id,
+            user_updated: user?.id,
             date_updated: new Date(),
         })
         return result
@@ -126,12 +130,14 @@ async function load(editor, directus, options) {
 
 // **
 // Authentication commands and functions
-async function login(editor, directus) {
+async function login(editor, directus, options) {
     user = await auth(editor, directus)
     editor.trigger('login:success')
+    editor.StorageManager.config.autosave = options.autosave
 }
 async function logout(editor, directus) {
     user = null
+    editor.StorageManager.config.autosave = false
     await directus.auth.logout()
     editor.trigger('logout:success')
 }

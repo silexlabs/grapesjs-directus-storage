@@ -8,7 +8,7 @@
     "url": "https://github.com/silexlabs/grapesjs-directus-storage.git"
   },
   "scripts": {
-    "start": "grapesjs-cli serve --patch=false",
+    "start": "grapesjs-cli serve",
     "build": "grapesjs-cli build --patch=false",
     "lint": "eslint src"
   },

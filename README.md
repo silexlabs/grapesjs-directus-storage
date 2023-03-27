@@ -70,6 +70,8 @@ The collection to store your data needs to have these fields
 
 These fields can be of `code` fields of type JSON so that the UI is adequat, or they can be simple text fields
 
+As the plugin needs to connect to your Directus server, you need to handle CORS on the server, [read Directus docs on CORS](https://docs.directus.io/self-hosted/config-options.html#cors)
+
 ## Options
 
 | Option | Description | Default |
@@ -86,8 +88,6 @@ These fields can be of `code` fields of type JSON so that the UI is adequat, or 
   * `npm i @silexlabs/grapesjs-directus-storage`
 * GIT
   * `git clone https://github.com/silexlabs/grapesjs-directus-storage.git`
-
-
 
 ## Usage
 
