@@ -1,7 +1,12 @@
 # Grapesjs Directus Storage
 
-[DEMO](##)
-> **Provide a live demo of your plugin**
+Custom storage for GrapesJs website builders. Use Directus API to store website data and assets.
+
+> This code is part of a bigger project: [about Silex v3](https://www.silexlabs.org/silex-v3-kickoff/)
+
+Links
+
+* [DEMO on Codepen](https://codepen.io/lexoyo/full/RwYdGGO)
 For a better user engagement create a simple live demo by using services like [JSFiddle](https://jsfiddle.net) [CodeSandbox](https://codesandbox.io) [CodePen](https://codepen.io) and link it here in your README (attaching a screenshot/gif will also be a plus).
 To help you in this process here below you will find the necessary HTML/CSS/JS, so it just a matter of copy-pasting on some of those services. After that delete this part and update the link above
 
