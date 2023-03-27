@@ -1,0 +1,30 @@
+{
+  "name": "@silexlabs/grapesjs-directus-storage",
+  "version": "1.0.0",
+  "description": "Grapesjs Directus Storage",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/silexlabs/grapesjs-directus-storage.git"
+  },
+  "scripts": {
+    "start": "grapesjs-cli serve",
+    "build": "grapesjs-cli build",
+    "lint": "eslint src"
+  },
+  "keywords": [
+    "grapesjs",
+    "plugin",
+    "storage",
+    "directus"
+  ],
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "grapesjs-cli": "^4.0.1"
+  },
+  "dependencies": {
+    "backbone": "^1.4.1",
+    "grapesjs": "^0.20.3"
+  },
+  "license": "MIT"
+}
