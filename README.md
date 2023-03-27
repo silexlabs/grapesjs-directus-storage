@@ -54,6 +54,21 @@ body, html {
 }
 ```
 
+## Directus settings
+
+On the Directus side, you need
+
+1. A collection to store your website data
+1. A user with access right to the collection and the collection `directus_files`
+
+The collection to store your data needs to have these fields
+
+* `pages`
+* `styles`
+* `fonts` (optional, for use with @silexlabs/grapesjs-fonts)
+* `symbols` (optional, for use with @silexlabs/grapesjs-symbols)
+
+These fields can be of `code` fields of type JSON so that the UI is adequat, or they can be simple text fields
 
 ## Options
 
