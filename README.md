@@ -7,14 +7,22 @@ Custom storage for GrapesJs website builders. Use Directus API to store website 
 Links
 
 * [DEMO on Codepen](https://codepen.io/lexoyo/full/RwYdGGO)
-For a better user engagement create a simple live demo by using services like [JSFiddle](https://jsfiddle.net) [CodeSandbox](https://codesandbox.io) [CodePen](https://codepen.io) and link it here in your README (attaching a screenshot/gif will also be a plus).
-To help you in this process here below you will find the necessary HTML/CSS/JS, so it just a matter of copy-pasting on some of those services. After that delete this part and update the link above
+* [Npm package](https://www.npmjs.com/package/@silexlabs/grapesjs-directus-storage)
+
+The plugin currently has these features
+
+* Authentication commands using Directus API to login/logout the user
+* Custom StorageManager to store the website data in a Directus collection
+* Custom AssetManager which integrates with Directus assets
+* This plugin provides easy versioning of the website data and assets
+* The JSON data of the website and the assets are readable and editable in Directus
+* Directus provides no-code flow automations
 
 ### HTML
 ```html
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <script src="https://unpkg.com/grapesjs"></script>
-<script src="https://unpkg.com/grapesjs-directus-storage"></script>
+<script src="https://unpkg.com/@silexlabs/grapesjs-directus-storage"></script>
 
 <div id="gjs"></div>
 ```
@@ -22,11 +30,19 @@ To help you in this process here below you will find the necessary HTML/CSS/JS, 
 ### JS
 ```js
 const editor = grapesjs.init({
-	container: '#gjs',
+  container: '#gjs',
   height: '100%',
   fromElement: true,
-  storageManager: false,
-  plugins: ['grapesjs-directus-storage'],
+  storageManager: {
+    type: 'directus',
+    autoload: false,
+  },
+  plugins: ['@silexlabs/grapesjs-directus-storage'],
+  pluginsOpts: {
+    '@silexlabs/grapesjs-directus-storage': {
+      directusUrl: prompt('You need a Directus server to test this plugin. Directus server URL', 'http://localhost:8055')
+    }
+  }
 });
 ```
 
@@ -39,34 +55,20 @@ body, html {
 ```
 
 
-## Summary
-
-* Plugin name: `grapesjs-directus-storage`
-* Components
-    * `component-id-1`
-    * `component-id-2`
-    * ...
-* Blocks
-    * `block-id-1`
-    * `block-id-2`
-    * ...
-
-
-
 ## Options
 
 | Option | Description | Default |
 |-|-|-
-| `option1` | Description option | `default value` |
-
-
+| `directusUrl` | Directus URL | Required |
+| `collection` | Name of the directus collection to hold silex website data | `silex` |
+| `assets` | Path to directus assets folder, relative to the server root | `/assets` |
 
 ## Download
 
 * CDN
-  * `https://unpkg.com/grapesjs-directus-storage`
+  * `https://unpkg.com/@silexlabs/grapesjs-directus-storage`
 * NPM
-  * `npm i grapesjs-directus-storage`
+  * `npm i @silexlabs/grapesjs-directus-storage`
 * GIT
   * `git clone https://github.com/silexlabs/grapesjs-directus-storage.git`
 
@@ -97,7 +99,7 @@ Directly in the browser
 Modern javascript
 ```js
 import grapesjs from 'grapesjs';
-import plugin from 'grapesjs-directus-storage';
+import plugin from '@silexlabs/grapesjs-directus-storage';
 import 'grapesjs/dist/css/grapes.min.css';
 
 const editor = grapesjs.init({
@@ -142,8 +144,6 @@ Build the source
 ```sh
 $ npm run build
 ```
-
-
 
 ## License
 
