@@ -4,6 +4,9 @@ Directus as a backend for GrapesJS
 
 > This code is part of a bigger project: [about Silex v3](https://www.silexlabs.org/silex-v3-kickoff/)
 
+![Screenshot from the plugin in grapesjs demo](https://user-images.githubusercontent.com/715377/228202094-cf8a9359-7459-46dd-87a7-2b1db5f37dff.png)
+
+
 Links
 
 * [DEMO on Codepen](https://codepen.io/lexoyo/full/RwYdGGO)
