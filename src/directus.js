@@ -205,8 +205,8 @@ async function doLogin(editor, directus, options, previousError = null) {
               <style>
                 ${options.styles}
               </style>
-              <input id="pseudo" type="email" placeholder="User">
-              <input id="pass" type="password" placeholder="Password">
+              <input id="pseudo" type="email" placeholder="User" required>
+              <input id="pass" type="password" placeholder="Password" required>
               <input id="submit" type="submit" value="Login">
               <p class="error">${previousError || ''}</p>
             </form>
