@@ -75,10 +75,12 @@ As the plugin needs to connect to your Directus server, you need to handle CORS 
 ## Options
 
 | Option | Description | Default |
-|-|-|-
+|-|-|-|
 | `directusUrl` | Directus URL | Required |
 | `collection` | Name of the directus collection to hold silex website data | `silex` |
 | `assets` | Path to directus assets folder, relative to the server root | `/assets` |
+| `formClassName` | CSS classes to add to the login form | `directus__login` |
+| `styles` | CSS Styles to apply to the login form | See source code |
 
 ## Download
 

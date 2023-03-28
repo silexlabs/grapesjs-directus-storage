@@ -13,9 +13,32 @@ export let user = null
  */
 export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (editor, opts) => {
     // Default config
+    const className = opts.className || 'directus__login'
+    const selector = className.split(' ').join('.')
     const options = {
         collection: 'silex',
         assets: '/assets',
+        className,
+        styles: `
+        form.${selector} {
+            display: flex;
+            flex-direction: column;
+        }
+        form.${selector} input {
+            color: white;
+            background: black;
+            border: none;
+            padding: 5px;
+            display: block;
+            margin: 10px auto;
+        }
+        form.${selector} .error {
+            text-align: center;
+        }
+        .small-modal > div {
+            max-width: 300px;
+        }
+      `,
         autosave: editor.StorageManager.config.autosave,
         ...opts,
     }
@@ -47,6 +70,7 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
 
     // Load content when loggedin
     editor.on('login:success', () => editor.load())
+    editor.on('logout:success', () => editor.runCommand('login'))
 
     // Login immediately
     editor.runCommand('login')
@@ -73,9 +97,9 @@ function uploadFile(editor, directus, options) {
             formData.append('file-'+i, files[i])
         }
         const results = await directus.files.createOne(formData)
-    // When uploading 1 asset only, results is an object instead of array
-    // Make it an array in any case
-    ;[].concat(results)
+        // When uploading 1 asset only, results is an object instead of array
+        // Make it an array in any case
+        ;[].concat(results)
             .forEach(image => {
                 // Keep only the necessary fields
                 // Store the image info in grapesjs data structure
@@ -135,7 +159,7 @@ async function load(editor, directus, options) {
 // **
 // Authentication commands and functions
 async function login(editor, directus, options) {
-    user = await auth(editor, directus)
+    user = await auth(editor, directus, options)
     editor.trigger('login:success')
     editor.StorageManager.config.autosave = options.autosave
 }
@@ -145,7 +169,7 @@ async function logout(editor, directus) {
     await directus.auth.logout()
     editor.trigger('logout:success')
 }
-async function auth(editor, directus) {
+async function auth(editor, directus, options) {
     try {
     // Try to authenticate with token if exists
         await directus.auth.refresh()
@@ -159,23 +183,55 @@ async function auth(editor, directus) {
     // Not authenticated yet
     }
     if(!me) {
-        await doLogin(editor, directus)
+        await doLogin(editor, directus, options)
         me = await directus.users.me.read()
     }
     return me
 }
 
-async function doLogin(editor, directus, previousError = null) {
-    if(previousError) window.alert(previousError)
-    const email = window.prompt('Email:')
-    const password = window.prompt('Password:')
+async function doLogin(editor, directus, options, previousError = null) {
+    return new Promise(resolve => {
+        const el = document.createElement('div')
+        el.innerHTML = `
+            <form class="${options.className}">
+              <style>
+                ${options.styles}
+              </style>
+              <input id="pseudo" type="email" placeholder="User">
+              <input id="pass" type="password" placeholder="Password">
+              <input id="submit" type="submit" value="Login">
+              <p class="error">${previousError || ''}</p>
+            </form>
+        `
+        const form = el.firstElementChild
+        const pseudo = el.querySelector('input#pseudo')
+        const pass = el.querySelector('input#pass')
+        editor.Modal.open({
+            title: 'Login to Directus',
+            content: el,
+            attributes: {
+                class: 'small-modal',
+            },
 
-    try {
-        await directus.auth.login({ email, password })
-    } catch(err) {
-        console.error('auth error', err.message)
-        editor.trigger('auth:error', err.message)
-        doLogin(editor, directus, err.message)
-    }
+        })
+        pseudo.focus()
+        form.onsubmit = event => {
+            event.preventDefault()
+            editor.Modal.close()
+        }
+
+        editor.Modal.onceClose(async () => {
+            const email = pseudo.value
+            const password = pass.value
+
+            directus.auth.login({ email, password })
+                .then(() => resolve())
+                .catch(err => {
+                    console.error('auth error', err.message)
+                    editor.trigger('auth:error', err.message)
+                    resolve(doLogin(editor, directus, options, err.message))
+                })
+        })
+    })
 }
 
