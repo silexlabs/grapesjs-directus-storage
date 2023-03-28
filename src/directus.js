@@ -30,10 +30,18 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
             border: none;
             padding: 5px;
             display: block;
-            margin: 10px auto;
+        }
+        form.${selector} input[type="submit"] {
+            margin-left: auto;
+        }
+        form.${selector} input:not([type="submit"]) {
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
         form.${selector} .error {
             text-align: center;
+            margin: 0;
+            margin-top: 10px;
         }
         .small-modal > div {
             max-width: 300px;
