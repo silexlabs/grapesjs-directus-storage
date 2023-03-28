@@ -1,6 +1,6 @@
 # Grapesjs Directus Storage
 
-Custom storage for GrapesJs website builders. Use Directus API to store website data and assets.
+Directus as a backend for GrapesJS
 
 > This code is part of a bigger project: [about Silex v3](https://www.silexlabs.org/silex-v3-kickoff/)
 

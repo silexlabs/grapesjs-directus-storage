@@ -114,14 +114,18 @@ async function load(editor, directus, options) {
             limit: 1,
             sort: ['-id'],
         })
-        const data = results.data[0] || {}
-        return {
+        const data = results.data[0]
+        if(data) {
+          return {
             pages: parseIfNeeded(data.pages),
             fonts: parseIfNeeded(data.fonts),
             publication: parseIfNeeded(data.publication),
             settings: parseIfNeeded(data.settings),
             symbols: parseIfNeeded(data.symbols),
             styles: parseIfNeeded(data.styles),
+          }
+        } else {
+          return null
         }
     } catch (err) {
         console.error(err)
