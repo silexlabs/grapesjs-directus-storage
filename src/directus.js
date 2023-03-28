@@ -116,16 +116,16 @@ async function load(editor, directus, options) {
         })
         const data = results.data[0]
         if(data) {
-          return {
-            pages: parseIfNeeded(data.pages),
-            fonts: parseIfNeeded(data.fonts),
-            publication: parseIfNeeded(data.publication),
-            settings: parseIfNeeded(data.settings),
-            symbols: parseIfNeeded(data.symbols),
-            styles: parseIfNeeded(data.styles),
-          }
+            return {
+                pages: parseIfNeeded(data.pages),
+                fonts: parseIfNeeded(data.fonts),
+                publication: parseIfNeeded(data.publication),
+                settings: parseIfNeeded(data.settings),
+                symbols: parseIfNeeded(data.symbols),
+                styles: parseIfNeeded(data.styles),
+            }
         } else {
-          return null
+            return null
         }
     } catch (err) {
         console.error(err)
