@@ -10,6 +10,7 @@
   "scripts": {
     "start": "grapesjs-cli serve",
     "build": "grapesjs-cli build --patch=false",
+    "watch": "watch npm run build",
     "preversion": "npm run build && git add -A dist",
     "lint": "eslint src"
   },

@@ -1,10 +1,8 @@
 import grapesjs from 'grapesjs/dist/grapes.min.js'
 import { Directus } from '@directus/sdk'
 
-// **
-// Give access to the current user (data from directus)
-// This will be accessible after editor.on('login:success')
-export let user = null
+// Store the user temporarily
+let _user = null
 
 /**
  * Define the plugin
@@ -77,7 +75,7 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
     editor.on('asset:open', () => loadAssets(editor, directus, options))
 
     // Load content when loggedin
-    editor.on('login:success', () => editor.load())
+    editor.on('login:success', () => editor.load(() => editor.getModel().set('changesCount', 0)))
     editor.on('logout:success', () => editor.runCommand('login'))
 
     // Login immediately
@@ -127,12 +125,12 @@ async function store(editor, directus, options, data) {
         const { assets, ...saved } = data
         const result = await directus.items(options.collection).createOne({
             ...saved,
-            user_updated: user?.id,
+            user_updated: _user?.id,
             date_updated: new Date(),
         })
         return result
     } catch (err) {
-        console.error(err)
+        console.error(err, err.message, err.code)
     }
 }
 
@@ -167,12 +165,16 @@ async function load(editor, directus, options) {
 // **
 // Authentication commands and functions
 async function login(editor, directus, options) {
-    user = await auth(editor, directus, options)
-    editor.trigger('login:success')
+    _user = await auth(editor, directus, options)
+    editor.trigger('login:success', {
+      getToken: async () => directus.auth.token,
+      // Give access to the current user (data from directus)
+      getUser: async () => auth(editor, directus, options),
+    })
     editor.StorageManager.config.autosave = options.autosave
 }
 async function logout(editor, directus) {
-    user = null
+    _user = null
     editor.StorageManager.config.autosave = false
     await directus.auth.logout()
     editor.trigger('logout:success')
