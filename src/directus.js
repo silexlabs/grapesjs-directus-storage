@@ -68,6 +68,10 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
     // Commands
     editor.Commands.add('login', () => login(editor, directus, options))
     editor.Commands.add('logout', () => logout(editor, directus))
+    editor.Commands.add('relogin', async () => {
+        await logout(editor, directus)
+        return login(editor, directus, options)
+    })
 
     // Custom asset manager to upload assets to directus
     // from grapesjs asset manager UI
@@ -75,8 +79,7 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
     editor.on('asset:open', () => loadAssets(editor, directus, options))
 
     // Load content when loggedin
-    editor.on('login:success', () => editor.load(() => editor.getModel().set('changesCount', 0)))
-    editor.on('logout:success', () => editor.runCommand('login'))
+    editor.once('login:success', () => editor.load(() => editor.getModel().set('changesCount', 0)))
 
     // Login immediately
     editor.runCommand('login')
@@ -130,7 +133,8 @@ async function store(editor, directus, options, data) {
         })
         return result
     } catch (err) {
-        console.error(err, err.message, err.code)
+        await reloginOnError(editor, directus, options, err)
+        return store(editor, directus, options, data)
     }
 }
 
@@ -158,18 +162,30 @@ async function load(editor, directus, options) {
             return null
         }
     } catch (err) {
-        console.error(err)
+        await reloginOnError(editor, directus, options, err)
+        return load(editor, directus, options)
+    }
+}
+async function reloginOnError(editor, directus, options, err) {
+    switch(err.response?.status) {
+    case 401:
+    case 403:
+        editor.trigger('logout:success')
+        return login(editor, directus, options)
+    default:
+        throw err
     }
 }
 
 // **
 // Authentication commands and functions
 async function login(editor, directus, options) {
+    editor.trigger('login:start')
     _user = await auth(editor, directus, options)
     editor.trigger('login:success', {
-      getToken: async () => directus.auth.token,
-      // Give access to the current user (data from directus)
-      getUser: async () => auth(editor, directus, options),
+        getToken: async () => directus.auth.token,
+        // Give access to the current user (data from directus)
+        getUser: async () => auth(editor, directus, options),
     })
     editor.StorageManager.config.autosave = options.autosave
 }
@@ -237,8 +253,7 @@ async function doLogin(editor, directus, options, previousError = null) {
             directus.auth.login({ email, password })
                 .then(() => resolve())
                 .catch(err => {
-                    console.error('auth error', err.message)
-                    editor.trigger('auth:error', err.message)
+                    editor.trigger('login:error', err)
                     resolve(doLogin(editor, directus, options, err.message))
                 })
         })

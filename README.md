@@ -85,6 +85,23 @@ As the plugin needs to connect to your Directus server, you need to handle CORS 
 | `formClassName` | CSS classes to add to the login form | `directus__login` |
 | `styles` | CSS Styles to apply to the login form | See source code |
 
+## Actions
+
+| Action | Description |
+|-|-|
+| `login` | Show the login form and login |
+| `logout` | Log out the user |
+| `relogin` | Log out and login immediately again |
+
+## Event
+
+| Event | Description | Params |
+|-|-|-|
+| `login:start` | Show login form to start loging in | - |
+| `login:success` | The user is logged in | An object with 2 methods: `getUser()` and `getToken()` |
+| `login:error` | An error occured while login, e.g. wrong password | The error object, with a `message` field |
+| `logout:success` | The user is logged out | - |
+
 ## Download
 
 * CDN
