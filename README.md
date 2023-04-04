@@ -76,11 +76,11 @@ The collection to store your data needs to have these fields
 * `fonts` (optional, for use with @silexlabs/grapesjs-fonts)
 * `symbols` (optional, for use with @silexlabs/grapesjs-symbols)
 
-![Directus data model](https://user-images.githubusercontent.com/715377/229766525-18b8370e-2c39-4344-ae53-cf49d916aedf.png)
-
-These fields can be of `code` fields of type JSON so that the UI is adequat, or they can be simple text fields
+These fields can be `code` fields of type JSON so that the UI is adequat, or they can be simple text fields
 
 As the plugin needs to connect to your Directus server, you need to handle CORS on the server, [read Directus docs on CORS](https://docs.directus.io/self-hosted/config-options.html#cors)
+
+![Directus data model](https://user-images.githubusercontent.com/715377/229766525-18b8370e-2c39-4344-ae53-cf49d916aedf.png)
 
 ## Options
 
