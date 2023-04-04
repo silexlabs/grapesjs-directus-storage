@@ -66,7 +66,7 @@ body, html {
 
 On the Directus side, you need
 
-1. A collection to store your website data (can be a list or singleton)
+1. A collection to store your website data (has to be a list, singleton not yet supported)
 1. A user with access right to the collection and to the collection `directus_files`
 
 The collection to store your data needs to have these fields

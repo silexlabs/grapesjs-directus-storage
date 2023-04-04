@@ -3,7 +3,6 @@ import { Directus } from '@directus/sdk'
 
 // Store the user temporarily
 let _user = null
-let _isSingleton = false
 
 /**
  * Define the plugin
@@ -127,7 +126,7 @@ async function store(editor, directus, options, data) {
     try {
         /* eslint-disable-next-line no-unused-vars */
         const { assets, ...saved } = data
-        const result = await directus.items(options.collection)[_isSingleton ? 'update' : 'createOne']({
+        const result = await directus.items(options.collection).createOne({
             ...saved,
             user_updated: _user?.id,
             date_updated: new Date(),
@@ -149,8 +148,7 @@ async function load(editor, directus, options) {
             limit: 1,
             sort: ['-id'],
         })
-        _isSingleton = Array.isArray(results.data)
-        const data = _isSingleton ? results.data[0] : results.data
+        const data = results.data[0]
         if(data) {
             return {
                 pages: parseIfNeeded(data.pages),
