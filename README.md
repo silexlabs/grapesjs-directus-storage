@@ -21,7 +21,12 @@ The plugin currently has these features
 * The JSON data of the website and the assets are readable and editable in Directus
 * Directus provides no-code flow automations
 
+Here is grapesjs  data in directus
+
+![grapesjs  data in directus](https://user-images.githubusercontent.com/715377/229767412-8ff51e9d-29da-4d35-9b57-cd64790465ac.png)
+
 ### HTML
+
 ```html
 <link href="https://unpkg.com/grapesjs/dist/css/grapes.min.css" rel="stylesheet">
 <script src="https://unpkg.com/grapesjs"></script>
@@ -61,8 +66,8 @@ body, html {
 
 On the Directus side, you need
 
-1. A collection to store your website data
-1. A user with access right to the collection and the collection `directus_files`
+1. A collection to store your website data (can be a list or singleton)
+1. A user with access right to the collection and to the collection `directus_files`
 
 The collection to store your data needs to have these fields
 
@@ -70,6 +75,8 @@ The collection to store your data needs to have these fields
 * `styles`
 * `fonts` (optional, for use with @silexlabs/grapesjs-fonts)
 * `symbols` (optional, for use with @silexlabs/grapesjs-symbols)
+
+![Directus data model](https://user-images.githubusercontent.com/715377/229766525-18b8370e-2c39-4344-ae53-cf49d916aedf.png)
 
 These fields can be of `code` fields of type JSON so that the UI is adequat, or they can be simple text fields
 
