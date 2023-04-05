@@ -91,6 +91,8 @@ As the plugin needs to connect to your Directus server, you need to handle CORS 
 | `assets` | Path to directus assets folder, relative to the server root | `/assets` |
 | `formClassName` | CSS classes to add to the login form | `directus__login` |
 | `styles` | CSS Styles to apply to the login form | See source code |
+| `userCreated` | Wether to update the `user_created` field | `true` |
+| `userUpdated` | Wether to update the `user_updated` field | `true` |
 
 ## Actions
 

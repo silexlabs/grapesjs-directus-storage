@@ -17,6 +17,8 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
         collection: 'silex',
         assets: '/assets',
         className,
+        userUpdated: true,
+        userCreated: true,
         styles: `
         form.${selector} {
             display: flex;
@@ -128,8 +130,10 @@ async function store(editor, directus, options, data) {
         const { assets, ...saved } = data
         const result = await directus.items(options.collection).createOne({
             ...saved,
-            user_updated: _user?.id,
-            date_updated: new Date(),
+            ...(options.userUpdated && { user_updated: _user?.id }),
+            ...(options.userUpdated && { date_updated: new Date() }),
+            ...(options.userCreated && { user_created: _user?.id }),
+            ...(options.userCreated && { date_created: new Date() }),
         })
         return result
     } catch (err) {
