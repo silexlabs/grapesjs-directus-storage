@@ -47,16 +47,12 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
             max-width: 300px;
         }
       `,
-        autosave: editor.StorageManager.config.autosave,
         ...opts,
     }
 
     if(!options.directusUrl) {
         throw new Error('Option `directusUrl` is required')
     }
-
-    // Disable autosave while not logged in
-    editor.StorageManager.config.autosave = false
 
     // Create directus client
     const directus = new Directus(options.directusUrl)
@@ -80,8 +76,23 @@ export default grapesjs.plugins.add('@silexlabs/grapesjs-directus-storage', (edi
     editor.AssetManager.config.uploadFile = uploadFile(editor, directus, options)
     editor.on('asset:open', () => loadAssets(editor, directus, options))
 
+    // Prevent undo loaded data
+    // Prevent save on load
+    // FIXME: this is hacky, why do we need this and why the setTimeout is needed
+    const { autosave } = editor.StorageManager.config
+    editor.on('storage:start:load', () => {
+        editor.StorageManager.setAutosave(false)
+    })
+    editor.on('storage:end:load', () => {
+        setTimeout(() => {
+            editor.UndoManager.clear()
+            editor.StorageManager.setAutosave(autosave)
+        }, 500)
+    })
     // Load content when loggedin
-    editor.once('login:success', () => editor.load(() => editor.getModel().set('changesCount', 0)))
+    editor.once('login:success', () => {
+        editor.load()
+    })
 
     // Login immediately
     editor.runCommand('login')
@@ -191,11 +202,9 @@ async function login(editor, directus, options) {
         // Give access to the current user (data from directus)
         getUser: async () => auth(editor, directus, options),
     })
-    editor.StorageManager.config.autosave = options.autosave
 }
 async function logout(editor, directus) {
     _user = null
-    editor.StorageManager.config.autosave = false
     await directus.auth.logout()
     editor.trigger('logout:success')
 }
