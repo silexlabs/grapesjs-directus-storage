@@ -28,12 +28,13 @@
     "directus"
   ],
   "devDependencies": {
-    "eslint": "^8.43.0",
-    "grapesjs-cli": "^4.0.1",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
-    "@typescript-eslint/parser": "^5.60.0"
+    "@typescript-eslint/parser": "^5.60.0",
+    "eslint": "^8.43.0",
+    "grapesjs-cli": "^4.0.1"
   },
   "dependencies": {
+    "@directus/sdk": "^11.0.1",
     "backbone": "^1.4.1",
     "grapesjs": "^0.20.3"
   },
