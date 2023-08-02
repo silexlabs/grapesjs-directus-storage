@@ -2,17 +2,24 @@
   "name": "@silexlabs/grapesjs-directus-storage",
   "version": "1.0.15",
   "description": "Grapesjs Directus Storage",
-  "main": "dist/index.js",
+  "main": "dist/es5/index.js",
+  "module": "dist/es6/index.js",
+  "types": "dist/es6/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/silexlabs/grapesjs-directus-storage.git"
   },
   "scripts": {
     "start": "grapesjs-cli serve",
-    "build": "grapesjs-cli build --patch=false",
+    "build": "rm -rf dist && tsc && tsc --build tsconfig.es5.json",
     "watch": "watch npm run build",
-    "preversion": "npm run build && git add -A dist",
-    "lint": "eslint src"
+    "prepublishOnly": "$npm_execpath run build && $npm_execpath run lint",
+    "lint": "eslint \"src/**/*.ts\"",
+    "lint:fix": "$npm_execpath run lint -- --fix"
   },
   "keywords": [
     "grapesjs",
@@ -21,8 +28,10 @@
     "directus"
   ],
   "devDependencies": {
-    "eslint": "^8.28.0",
-    "grapesjs-cli": "^4.0.1"
+    "eslint": "^8.43.0",
+    "grapesjs-cli": "^4.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0"
   },
   "dependencies": {
     "backbone": "^1.4.1",
