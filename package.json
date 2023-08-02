@@ -34,7 +34,7 @@
     "grapesjs-cli": "^4.0.1"
   },
   "dependencies": {
-    "@directus/sdk": "^11.0.1",
+    "@directus/sdk": "10.3.5",
     "backbone": "^1.4.1",
     "grapesjs": "^0.20.3"
   },
