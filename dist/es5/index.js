@@ -14,15 +14,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var directus_js_1 = __importDefault(require("./directus.js"));
-var en_js_1 = __importDefault(require("./locale/en.js"));
+var directus_1 = __importDefault(require("./directus"));
+var en_1 = __importDefault(require("./locale/en"));
 exports.default = (function (editor, opts) {
     if (opts === void 0) { opts = {}; }
     var options = __assign({
         i18n: {},
         // default options
     }, opts);
-    (0, directus_js_1.default)(editor, options);
+    (0, directus_1.default)(editor, options);
     // Load i18n files
-    editor.I18n && editor.I18n.addMessages(__assign({ en: en_js_1.default }, options.i18n));
+    editor.I18n && editor.I18n.addMessages(__assign({ en: en_1.default }, options.i18n));
 });

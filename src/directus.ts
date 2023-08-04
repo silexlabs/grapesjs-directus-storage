@@ -1,5 +1,4 @@
-import { Directus } from '/js/directus/sdk.esm.min.js'
-
+import { Directus } from '@directus/sdk'
 
 // Store the user temporarily
 let _user = null

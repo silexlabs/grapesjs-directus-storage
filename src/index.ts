@@ -1,5 +1,5 @@
-import initDirectus from './directus.js'
-import en from './locale/en.js'
+import initDirectus from './directus'
+import en from './locale/en'
 
 export default (editor, opts = {}) => {
     const options = { ...{

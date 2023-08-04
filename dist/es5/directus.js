@@ -58,7 +58,7 @@ var __rest = (this && this.__rest) || function (s, e) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var sdk_esm_min_js_1 = require("/js/directus/sdk.esm.min.js");
+var sdk_1 = require("@directus/sdk");
 // Store the user temporarily
 var _user = null;
 /**
@@ -75,7 +75,7 @@ exports.default = (function (editor, opts) {
         throw new Error('Option `directusUrl` is required');
     }
     // Create directus client
-    var directus = new sdk_esm_min_js_1.Directus(options.directusUrl);
+    var directus = new sdk_1.Directus(options.directusUrl);
     // Grapesjs custom storage to use directus collection to store the website data
     editor.Storage.add('directus', {
         store: function (data) { return store(editor, directus, options, data); },

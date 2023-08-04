@@ -1,24 +1,9 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "target": "ES6",
-    "lib": ["ES2020", "DOM"],
-    "declaration": true,
-    "outDir": "./dist/es6",
-    "esModuleInterop": true,
-    "skipLibCheck": true, // This is needed to avoid errors with the `@types/node` package (Found 89 errors in the same file, starting at: ../../node_modules/@types/webpack/index.d.ts:32)
-    "moduleResolution": "Node",
-    "baseUrl": ".",
-    "paths": {
-      // This is for client to import the SDK
-      // You need to host the SDK at /js/directus/sdk.esm.min.js
-      "/js/directus/sdk.esm.min.js": ["./node_modules/@directus/sdk/dist/"],
-    }
-  },
-  "include": ["src"],
-  "exclude": [
-    "src/**/*.test.ts",
-    "**/node_modules",
-    "lib"
-  ]
+    "target": "es6",
+    "module": "es6",
+    "moduleResolution": "node",
+    "outDir": "./dist/ts",
+    "esModuleInterop": true
+  }
 }

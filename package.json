@@ -15,7 +15,7 @@
   },
   "scripts": {
     "start": "grapesjs-cli serve",
-    "build": "rm -rf dist && tsc && tsc --build tsconfig.es5.json",
+    "build": "rm -rf dist && rollup -c && tsc --build tsconfig.es5.json",
     "watch": "watch npm run build",
     "prepublishOnly": "$npm_execpath run build && $npm_execpath run lint",
     "lint": "eslint \"src/**/*.ts\"",
@@ -28,13 +28,19 @@
     "directus"
   ],
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.3",
+    "@rollup/plugin-node-resolve": "^15.1.0",
     "@typescript-eslint/eslint-plugin": "^5.60.0",
     "@typescript-eslint/parser": "^5.60.0",
     "eslint": "^8.43.0",
-    "grapesjs-cli": "^4.0.1"
+    "grapesjs-cli": "^4.0.1",
+    "rollup": "^3.27.2",
+    "rollup-plugin-typescript2": "^0.35.0",
+    "typescript": "^5.1.6"
   },
   "dependencies": {
     "@directus/sdk": "10.3.5",
+    "@rollup/plugin-json": "^6.0.0",
     "backbone": "^1.4.1",
     "grapesjs": "^0.20.3"
   },
