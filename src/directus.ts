@@ -1,4 +1,5 @@
-import { Directus } from '@directus/sdk'
+import { Directus } from '/js/directus/sdk.esm.min.js'
+
 
 // Store the user temporarily
 let _user = null
@@ -208,17 +209,17 @@ async function logout(editor, directus) {
     editor.trigger('logout:success')
 }
 async function auth(editor, directus, options) {
-    try {
-    // Try to authenticate with token if exists
-        await directus.auth.refresh()
-    } catch(refreshError) {
-    // We don't have token or it is invalid / expired
-    }
+    //try {
+    //    // Try to authenticate with token if exists
+    //    await directus.auth.refresh()
+    //} catch(refreshError) {
+    //    // We don't have token or it is invalid / expired
+    //}
     let me = false
     try {
         me = await directus.users.me.read()
     } catch(userError) {
-    // Not authenticated yet
+        // Not authenticated yet
     }
     if(!me) {
         await doLogin(editor, directus, options)
@@ -227,7 +228,7 @@ async function auth(editor, directus, options) {
     return me
 }
 
-async function doLogin(editor, directus, options, previousError = null) {
+async function doLogin(editor, directus, options, previousError = null): Promise<void> {
     return new Promise<void>(resolve => {
         const el = document.createElement('div')
         el.innerHTML = `
@@ -250,7 +251,6 @@ async function doLogin(editor, directus, options, previousError = null) {
             attributes: {
                 class: 'small-modal',
             },
-
         })
         pseudo.focus()
         form.onsubmit = event => {

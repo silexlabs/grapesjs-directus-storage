@@ -7,7 +7,13 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true, // This is needed to avoid errors with the `@types/node` package (Found 89 errors in the same file, starting at: ../../node_modules/@types/webpack/index.d.ts:32)
-    "lib": ["ES2020", "DOM"]
+    "lib": ["ES2020", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      // This is for client to import the SDK
+      // You need to host the SDK at /js/directus/sdk.esm.min.js
+      "/js/directus/sdk.esm.min.js": ["./node_modules/@directus/sdk/dist/"],
+    }
   },
   "include": ["src"],
   "exclude": [

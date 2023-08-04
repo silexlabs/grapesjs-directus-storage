@@ -6,6 +6,7 @@ Directus as a backend for GrapesJS
 
 ![Screenshot from the plugin in grapesjs demo](https://user-images.githubusercontent.com/715377/228202094-cf8a9359-7459-46dd-87a7-2b1db5f37dff.png)
 
+/!\ You may need to host directus SDK as `/js/directus/sdk.esm.min.js` (not with typescript)
 
 Links
 
@@ -21,9 +22,9 @@ The plugin currently has these features
 * The JSON data of the website and the assets are readable and editable in Directus
 * Directus provides no-code flow automations
 
-Here is grapesjs  data in directus
+Here is grapesjs data in directus
 
-![grapesjs  data in directus](https://user-images.githubusercontent.com/715377/229767412-8ff51e9d-29da-4d35-9b57-cd64790465ac.png)
+![grapesjs data in directus](https://user-images.githubusercontent.com/715377/229767412-8ff51e9d-29da-4d35-9b57-cd64790465ac.png)
 
 ### HTML
 

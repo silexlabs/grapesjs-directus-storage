@@ -9,8 +9,8 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import initDirectus from './directus';
-import en from './locale/en';
+import initDirectus from './directus.js';
+import en from './locale/en.js';
 export default (function (editor, opts) {
     if (opts === void 0) { opts = {}; }
     var options = __assign({

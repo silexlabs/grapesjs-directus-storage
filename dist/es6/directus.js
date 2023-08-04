@@ -56,7 +56,7 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-import { Directus } from '@directus/sdk';
+import { Directus } from '/js/directus/sdk.esm.min.js';
 // Store the user temporarily
 var _user = null;
 /**
@@ -291,42 +291,31 @@ function logout(editor, directus) {
 }
 function auth(editor, directus, options) {
     return __awaiter(this, void 0, void 0, function () {
-        var refreshError_1, me, userError_1;
+        var me, userError_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 3]);
-                    // Try to authenticate with token if exists
-                    return [4 /*yield*/, directus.auth.refresh()];
-                case 1:
-                    // Try to authenticate with token if exists
-                    _a.sent();
-                    return [3 /*break*/, 3];
-                case 2:
-                    refreshError_1 = _a.sent();
-                    return [3 /*break*/, 3];
-                case 3:
                     me = false;
-                    _a.label = 4;
-                case 4:
-                    _a.trys.push([4, 6, , 7]);
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
                     return [4 /*yield*/, directus.users.me.read()];
-                case 5:
+                case 2:
                     me = _a.sent();
-                    return [3 /*break*/, 7];
-                case 6:
+                    return [3 /*break*/, 4];
+                case 3:
                     userError_1 = _a.sent();
-                    return [3 /*break*/, 7];
-                case 7:
-                    if (!!me) return [3 /*break*/, 10];
+                    return [3 /*break*/, 4];
+                case 4:
+                    if (!!me) return [3 /*break*/, 7];
                     return [4 /*yield*/, doLogin(editor, directus, options)];
-                case 8:
+                case 5:
                     _a.sent();
                     return [4 /*yield*/, directus.users.me.read()];
-                case 9:
+                case 6:
                     me = _a.sent();
-                    _a.label = 10;
-                case 10: return [2 /*return*/, me];
+                    _a.label = 7;
+                case 7: return [2 /*return*/, me];
             }
         });
     });
