@@ -1,6 +1,6 @@
 {
   "name": "@silexlabs/grapesjs-directus-storage",
-  "version": "1.0.15",
+  "version": "1.0.21",
   "description": "Grapesjs Directus Storage",
   "main": "dist/index.js",
   "repository": {
