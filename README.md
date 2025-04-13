@@ -2,6 +2,8 @@
 
 Directus as a backend for GrapesJS
 
+# DIRECTUS IS NOT OPEN SOURCE ANYMORE SINCE V10
+
 > /!\ This code uses an outdated SDK from directus project
 >
 > This code is part of a bigger project: [about Silex v3](https://www.silexlabs.org/silex-v3-kickoff/)
